@@ -1,0 +1,45 @@
+{
+  "name": "claude-code-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP Server for Claude Code integration - Enables 10000x amplification through distributed AI agent architecture",
+  "main": "mcp-server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node mcp-server.js",
+    "dev": "nodemon mcp-server.js",
+    "health": "node health-check.js",
+    "test": "echo \"Test suite coming soon\" && exit 0"
+  },
+  "keywords": [
+    "claude-code",
+    "mcp",
+    "ai-agents",
+    "docker",
+    "anthropic",
+    "distributed-ai"
+  ],
+  "author": "Jordan Ehrig <jordan@ehrig.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SamuraiBuddha/claude-code-docker-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SamuraiBuddha/claude-code-docker-mcp/issues"
+  },
+  "homepage": "https://github.com/SamuraiBuddha/claude-code-docker-mcp#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.8.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
