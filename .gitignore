@@ -1,0 +1,133 @@
+# Claude Code Docker MCP - Comprehensive .gitignore
+
+# Environment & Secrets (CRITICAL EXCLUSIONS)
+.env*
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+config/secrets/
+private/
+.anthropic/
+
+# API Keys & Tokens  
+*token*
+*secret*
+*key*
+*.credentials
+.api-keys
+anthropic-api-key.txt
+
+# Logs & Debug
+logs/
+*.log
+debug/
+coverage/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies
+node_modules/
+vendor/
+.pnp/
+.pnp.js
+
+# Build & Cache
+dist/
+build/
+.cache/
+.tmp/
+.next/
+out/
+
+# IDE & OS
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+
+# Database
+*.db
+*.sqlite
+*.sql
+data/
+db/
+
+# Docker & Container
+.docker/
+docker-data/
+*.tar
+*.tar.gz
+
+# Backups
+backup/
+*.bak
+*.backup
+
+# Test Coverage
+coverage/
+.nyc_output/
+.coverage
+
+# Temporary files
+*.tmp
+temp/
+tmp/
+
+# Project Specific
+projects/*/
+uploads/
+downloads/
+cache/
+
+# Runtime
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
