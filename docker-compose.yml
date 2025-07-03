@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  claude-code-mcp:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: claude-code-mcp
+    restart: unless-stopped
+    
+    # Security hardening
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    read_only: false  # Claude Code needs write access for project operations
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CLAUDE_CODE_LOG_LEVEL=${CLAUDE_CODE_LOG_LEVEL:-info}
+      - CLAUDE_CODE_TIMEOUT=${CLAUDE_CODE_TIMEOUT:-300000}
+      - CLAUDE_CODE_MAX_CONCURRENT_TASKS=${CLAUDE_CODE_MAX_CONCURRENT_TASKS:-3}
+      - MCP_PORT=${MCP_PORT:-3001}
+      - MCP_HOST=${MCP_HOST:-127.0.0.1}
+    
+    # Volume mounts
+    volumes:
+      - ./projects:/workspace/projects:rw
+      - ./logs:/workspace/logs:rw
+      # Note: Docker socket mount removed for security
+    
+    # Network configuration
+    ports:
+      - "${MCP_HOST:-127.0.0.1}:${MCP_PORT:-3001}:3001"  # Only bind to localhost by default
+    
+    # Health check override
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Optional: Add monitoring (uncomment to enable)
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   container_name: claude-code-watchtower
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   command: --interval 30 --cleanup
+  #   restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# Optional: Add volume for persistent data
+volumes:
+  claude-code-data:
+    driver: local
